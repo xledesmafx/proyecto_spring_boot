@@ -58,7 +58,7 @@
 
 <nav>
     <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="/index.html">Home</a></li>
     </ul>
 </nav>
 
@@ -102,6 +102,10 @@
         <label for="estado">Estado: </label>
         <input class="form-control" id="estado" type="text" name="estado" th:field="*{estado}"/>
         <span class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">ERROR EN ESTADO</span> <!-- MENSAJE EN CASO DE ERROR -->
+        <br>
+        <label for="estado">Precio: </label>
+        <input class="form-control" id="precio" type="text" name="precio" th:field="*{precio}"/>
+        <span class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{estado}">ERROR EN PRECIO</span> <!-- MENSAJE EN CASO DE ERROR -->
         <br>
         <button class="btn btn-primary" type="submit">Guardar</button>
 </div>

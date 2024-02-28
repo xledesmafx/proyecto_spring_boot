@@ -78,11 +78,14 @@
 <body>
 <nav>
     <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="/index.html">Home</a></li>
     </ul>
 </nav>
 
 <div class="container contenedor Principal">
+
+    <h1 text-align="center">ADMINISTRAR VEHICULOS</h1>
+
     <div th:if="${autos != null and not #lists.isEmpty(autos)}"> <!-- SI LA LISTA NO ESTÁ VACÍA QUE MUESTRE LA TABLA -->
         <table class="table">
             <tr>
@@ -94,6 +97,7 @@
                 <th>Año</th>
                 <th>Descripción</th>
                 <th>Estado</th>
+                <th>Precio</th>
                 <th>Cambiar</th>
                 <th>Eliminar</th>
             </tr>
@@ -104,6 +108,7 @@
                 <td th:text="${auto.tipo}"></td>
                 <td th:text="${auto.kilometraje}"></td>
                 <td th:text="${auto.anho}"></td>
+                <td th:text="${auto.precio}"></td>
                 <td th:text="${auto.descripcion}"></td>
                 <td th:text="${auto.estado}"></td>
                 <td><a class="editar" th:href="@{/cambiar/} + ${auto.id}" th:text="Cambiar"/></td>

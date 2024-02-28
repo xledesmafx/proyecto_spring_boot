@@ -31,8 +31,10 @@ public class Auto implements Serializable {
     private int anho;
     @NotEmpty
     private String descripcion;
-
+    @NotEmpty
     private String estado;
+    @NotNull
+    private double precio;
 
 
 }

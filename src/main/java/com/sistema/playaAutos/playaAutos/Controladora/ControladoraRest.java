@@ -64,4 +64,9 @@ public class ControladoraRest {
         autoServicio.borrar(auto);
         return "redirect:/Opciones/catalogo";
     }
+
+    @GetMapping("/index.html")
+    public String home(){
+        return "/index.html";
+    }
 }
