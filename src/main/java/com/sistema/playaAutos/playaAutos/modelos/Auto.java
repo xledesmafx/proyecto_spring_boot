@@ -32,5 +32,7 @@ public class Auto implements Serializable {
     @NotEmpty
     private String descripcion;
 
+    private String estado;
+
 
 }
