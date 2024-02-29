@@ -72,6 +72,8 @@ public class ControladoraRest {
     public String saveMeme(@Validated @ModelAttribute("auto") Auto auto, BindingResult result, Model model,
                            @RequestParam("file") MultipartFile image, RedirectAttributes flash, SessionStatus status)
             throws Exception {
+
+        boolean guardadoExitoso=false;
         if (result.hasErrors()) {
             System.out.println(result.getFieldError());
             return "Opciones/agregar";
@@ -84,7 +86,15 @@ public class ControladoraRest {
                 auto.setImage(uniqueFileName);
             }
             autoServicio.guardar(auto);
+            guardadoExitoso = true;
             status.setComplete();
+            model.addAttribute("auto", new Auto());
+        }
+
+        if (guardadoExitoso) {
+            model.addAttribute("mensaje", "¡Los datos se han guardado correctamente!");
+        } else {
+            model.addAttribute("error", "¡Hubo un problema al guardar los datos!");
         }
         return "Opciones/agregar";
     }
