@@ -36,5 +36,7 @@ public class Auto implements Serializable {
     @NotNull
     private double precio;
 
+    private String image;
+
 
 }

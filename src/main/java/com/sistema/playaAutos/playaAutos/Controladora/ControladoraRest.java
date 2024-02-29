@@ -1,15 +1,25 @@
 package com.sistema.playaAutos.playaAutos.Controladora;
 
 import com.sistema.playaAutos.playaAutos.Servicio.AutoServicio;
+import com.sistema.playaAutos.playaAutos.Servicio.IUploadFileService;
 import com.sistema.playaAutos.playaAutos.modelos.Auto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Controller
@@ -17,6 +27,9 @@ public class ControladoraRest {
 
     @Autowired
     private AutoServicio autoServicio;
+
+    @Autowired
+    private IUploadFileService uploadFileService;
 
     public String comienzo(){
         return "index";
@@ -43,12 +56,36 @@ public class ControladoraRest {
         return "Opciones/agregar";
     }
 
+
+
+    @GetMapping("/regresar")
+    public String redireccionarAAdministrar(Model model) {
+        List<Auto> autos = autoServicio.listaAutos();
+        model.addAttribute("autos", autos);
+
+        return "/Opciones/administrar";
+    }
+
+
+
     @PostMapping("/guardar")
-    public String salvar(@Valid Auto auto, Errors error){
-        if(error.hasErrors()){
+    public String saveMeme(@Validated @ModelAttribute("auto") Auto auto, BindingResult result, Model model,
+                           @RequestParam("file") MultipartFile image, RedirectAttributes flash, SessionStatus status)
+            throws Exception {
+        if (result.hasErrors()) {
+            System.out.println(result.getFieldError());
             return "Opciones/agregar";
+        } else {
+            if (!image.isEmpty()) {
+                if (auto.getId() > 0 && auto.getImage() != null && auto.getImage().length() > 0) {
+                    uploadFileService.delete(auto.getImage());
+                }
+                String uniqueFileName = uploadFileService.copy(image);
+                auto.setImage(uniqueFileName);
+            }
+            autoServicio.guardar(auto);
+            status.setComplete();
         }
-        autoServicio.guardar(auto);
         return "Opciones/agregar";
     }
 
@@ -59,14 +96,31 @@ public class ControladoraRest {
         return "Opciones/agregar";
     }
 
+
+
     @GetMapping("/borrar/{id}")
-    public String borrar(Auto auto){
+    public String borrar(Auto auto, Model model){
         autoServicio.borrar(auto);
-        return "redirect:/Opciones/catalogo";
+        List<Auto> autos = autoServicio.listaAutos();
+        model.addAttribute("autos", autos);
+        return "/Opciones/administrar";
     }
 
-    @GetMapping("/index.html")
+    @GetMapping("/home")
     public String home(){
         return "/index.html";
+    }
+
+    @GetMapping("/Opciones/catalogo/{filename}")
+    public ResponseEntity<Resource> goImage(@PathVariable String filename){
+        Resource resource = null;
+        try {
+            resource = uploadFileService.load(filename);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
     }
 }
