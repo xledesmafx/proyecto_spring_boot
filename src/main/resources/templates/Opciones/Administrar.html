@@ -114,7 +114,9 @@
         </table>
     </div>
     <div th:if="${autos == null or #lists.isEmpty(autos)}">
-        <h3>NO HAY REGISTROS</h3>
+        <div class="alert alert-danger" role="alert">
+            No hay registros
+        </div>
     </div>
     <a class="btn btn-primary" th:href="@{/agregar}" >Nuevo Vehiculo</a>
 </div>
