@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -57,6 +57,9 @@
             margin-top: 30px;
         }
 
+        .error{
+            color: red;
+        }
     </style>
 
 
@@ -82,47 +85,47 @@
         <input type="hidden" name="id" th:field="*{id}"> <!--SE UTILIZA PARA QUE LOS DATOS SE MODIFIQUEN NO QUE SE DUPLIQUE-->
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="marca">Marca:</label>
                     <input class="form-control" id="marca" type="text" name="marca" th:field="*{marca}" required/>
-                    <div class="invalid-feedback">Por favor ingrese la marca.</div>
+                    <span class="error" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}">ERROR EN LA MARCA</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="color">Color:</label>
                     <input class="form-control" id="color" type="text" name="color" th:field="*{color}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el color.</div>
+                    <span class="error" th:if="${#fields.hasErrors('color')}" th:errors="*{color}">ERROR EN COLOR</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="tipo">Tipo:</label>
                     <input class="form-control" id="tipo" type="text" name="tipo" th:field="*{tipo}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el tipo.</div>
+                    <span class="error" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}">ERROR EN TIPO</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="anho">Año:</label>
                     <input class="form-control" id="anho" type="text" name="anho" th:field="*{anho}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el año.</div>
+                    <span class="error" th:if="${#fields.hasErrors('anho')}" th:errors="*{anho}">ERROR EN AÑO</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="modelo">Modelo:</label>
                     <input class="form-control" id="modelo" type="text" name="modelo" th:field="*{modelo}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el modelo.</div>
+                    <span class="error" th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}">ERROR EN MODELO</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="kilometraje">Kilometraje:</label>
                     <input class="form-control" id="kilometraje" type="text" name="kilometraje" th:field="*{kilometraje}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el kilometraje.</div>
+                    <span class="error" th:if="${#fields.hasErrors('kilometraje')}" th:errors="*{kilometraje}">ERROR EN KILOMETRAJE</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="descripcion">Descripción:</label>
                     <input class="form-control" id="descripcion" type="text" name="descripcion" th:field="*{descripcion}" required/>
-                    <div class="invalid-feedback">Por favor ingrese la descripción.</div>
+                    <span class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">ERROR EN DESCRIPCION</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
-                <div class="form-group">
+                <div class="form-group formulario">
                     <label for="estado">Estado:</label>
                     <input class="form-control" id="estado" type="text" name="estado" th:field="*{estado}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el estado.</div>
+                    <span class="error" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">ERROR EN ESTADO</span> <!--MENSAJE EN CASOD E ERORR-->
                 </div>
             </div>
         </div>
@@ -131,14 +134,13 @@
                 <div class="form-group formulario">
                     <label for="precio">Precio:</label>
                     <input class="form-control" id="precio" type="text" name="precio" th:field="*{precio}" required/>
-                    <div class="invalid-feedback">Por favor ingrese el precio.</div>
+                    <span class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">ERROR EN PRECIO</span>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group formulario">
                     <label for="file">Imagen:</label>
                     <input class="form-control" id="file" type="file" name="file" required/>
-                    <div class="invalid-feedback">Por favor seleccione una imagen.</div>
                 </div>
             </div>
         </div>

@@ -100,6 +100,10 @@
             color: white;
         }
 
+        .texto-estado{
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
@@ -123,13 +127,13 @@
 
                         <p class="card-text"><strong>Tipo:</strong> <span th:text="${auto.tipo}"></span></p>
 
-                        <p class="card-text"><strong>Kilometraje:</strong> <span th:text="${auto.kilometraje}"></span></p>
+                        <p class="card-text"><strong>Kilometraje:</strong> <span th:text="${auto.kilometraje}"></span>km</p>
 
                         <p class="card-text"><strong>Año:</strong> <span th:text="${auto.anho}"></span></p>
 
-                        <p class="card-text"><strong>Descripción:</strong> <span th:text="${auto.descripcion}"></span></p>
+                        <p class="card-text"><strong>Precio:</strong> <span th:text="${auto.precio}"></span>$</p>
 
-                        <p class="card-text"><strong>Estado:</strong> <span th:text="${auto.estado}"></span></p>
+                        <p class="card-text texto-estado"><strong><span th:text="${auto.estado}"></span></strong></p>
                     </div>
                 </div>
             </div>

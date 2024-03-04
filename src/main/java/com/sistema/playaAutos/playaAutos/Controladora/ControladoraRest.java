@@ -90,7 +90,6 @@ public class ControladoraRest {
             status.setComplete();
             model.addAttribute("auto", new Auto());
         }
-
         if (guardadoExitoso) {
             model.addAttribute("mensaje", "¡Los datos se han guardado correctamente!");
         } else {
