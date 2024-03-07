@@ -88,42 +88,34 @@ public class ControladoraApiRestTest {
 
     @Test
     public void testGuardarVehiculo() throws Exception {
-        // Datos de prueba
+
         Auto auto = new Auto();
         auto.setMarca("Toyota");
         auto.setModelo("Corolla");
         auto.setAnho(2018);
-
-        // Mockear el servicio para que devuelva el auto guardado
         when(autoServicioImp.guardarAutos(auto)).thenReturn(auto);
 
-        // Llamar al método del controlador y enviar una solicitud HTTP simulada
         mockMvc.perform(post("/vehiculo")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"marca\": \"Toyota\", \"modelo\": \"Corolla\", \"anho\": 2018}")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
-        // Verificar que el método del servicio fue llamado con el auto adecuado
         verify(autoServicioImp, times(1)).guardarAutos(auto);
     }
 
     @Test
     public void testEliminarPorId() throws Exception {
-        // ID de prueba
         Long id = 1L;
 
-        // Mockear el servicio para que devuelva true al eliminar el vehículo
         when(autoServicioImp.eliminarVehiculo(id)).thenReturn(true);
 
-        // Llamar al método del controlador y enviar una solicitud HTTP simulada
         mockMvc.perform(delete("/vehiculo/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("SE ELIMINO CORRECTAMENTE CON ID" + id)));
 
-        // Verificar que el método del servicio fue llamado con el ID adecuado
         verify(autoServicioImp, times(1)).eliminarVehiculo(id);
     }
 }
