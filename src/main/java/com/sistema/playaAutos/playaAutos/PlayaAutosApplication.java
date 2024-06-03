@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class PlayaAutosApplication {
 
-	//HOLAMUND DESDE GITHUB DESKTOP
-
 	public static void main(String[] args) {
 		SpringApplication.run(PlayaAutosApplication.class, args);
 	}
